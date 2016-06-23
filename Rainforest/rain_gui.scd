@@ -182,12 +182,13 @@ Window.closeAll;
 	// 'close all' button
 	closeB = Button(window, Rect(5, 5, 70, 30))
 	.states_([
-		["Kill 'em", Color.white, Color.red]
+		["Close All", Color.white, Color.red]
 	])
 	.action_({ arg button;
 		if(button.value==1,
 			{	},
 			{ "THE END".postln;
+				// TODO: check existance
 				~bg.free;
 				Window.closeAll;});
 	});
