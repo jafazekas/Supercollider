@@ -49,7 +49,6 @@ Window.closeAll;
 			~fade.value(w);
 			b.visible_(false);
 			~birdArray[c].play;
-			// ["tweet", c].postln
 		};
 	}
 	{voice == "frogs" } {
@@ -73,7 +72,52 @@ Window.closeAll;
 			~fade.value(w);
 			b.visible_(false);
 			~frogArray[c].play;
-			// ["croak", c].postln
+		};
+	}
+	{voice == "animals" } {
+		// Choose this animal
+		c = ~index.choose;
+		w = Window.new(
+			name: "Animal",
+			bounds: Rect.new(
+				left: xbound.rand,
+				top: ybound.rand,
+				width: width,
+				height: height),
+			resizable: false,
+			border: true
+		).front.alwaysOnTop_(true);
+		// Create button;
+		b = Button.new(w, Rect(0,0,width,height));
+		b.states = [["Roar!", Color.white, Color.red(0.7, 0.9)]];
+		b.action = {
+			~makeWindow.value;
+			~fade.value(w);
+			b.visible_(false);
+			~animalArray[c].play;
+		};
+	}
+	{voice == "ambiant" } {
+		// Choose this sound
+		c = ~index.choose;
+		w = Window.new(
+			name: "Forest",
+			bounds: Rect.new(
+				left: xbound.rand,
+				top: ybound.rand,
+				width: width,
+				height: height),
+			resizable: false,
+			border: true
+		).front.alwaysOnTop_(true);
+		// Create button;
+		b = Button.new(w, Rect(0,0,width,height));
+		b.states = [["...", Color.white, Color.red(0.7, 0.9)]];
+		b.action = {
+			~makeWindow.value;
+			~fade.value(w);
+			b.visible_(false);
+			~ambiantArray[c].play;
 		};
 	};
 };
@@ -96,7 +140,7 @@ Window.closeAll;
 
 	// drop down menu
 	menu = PopUpMenu(window, Rect(185, 5, 90, 30));
-	menu.items_(["Birds", "Frogs"]);
+	menu.items_(["Birds", "Frogs", "Animals", "Forest"]);
 	menu.background_(Color.green(0.7));
 	menu.stringColor_(Color.white);
 	menu.action = { arg selection;
@@ -108,12 +152,20 @@ Window.closeAll;
 			// "Frogs selected!".postln;
 			voice = "frogs";
 		});
+		if (selection.value == 2, {
+			// "Animals selected!".postln;
+			voice = "animals";
+		});
+		if (selection.value == 3, {
+			// "Forest noise selected!".postln;
+			voice = "ambiant";
+		});
 	};
 
 	// start background rain
 	rain = Button(window, Rect(80, 5, 100, 30))
 	.states_([
-		["Turn the Rain On", Color.white, Color.blue(0.5)],
+		["Make it Rain!", Color.white, Color.blue(0.5)],
 		["Turn the Rain Off", Color.white, Color.blue(1)]
 	])
 	.action_({ arg button;
